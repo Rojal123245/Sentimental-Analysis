@@ -1,0 +1,42 @@
+{% extends "base.html" %} {% block title %}Sentiment Analysis{% endblock %}
+
+{% block content %}
+<div class="content-wrapper" style="background-image:url('../static/images/1216.jpg');">
+    <div class="container h-100">
+        <div class="row justify-content-md-center align-items-center h-100">
+            <div class="card-wrapper">
+                <div class="card fat">
+                    <div class="card-body">
+                        <h4 class="card-title">Sentiment Analysis</h4>
+                        <!-- <div class="imgcontainer">
+                                <img src="./user.png" alt="Avatar" class="avatar">
+                            </div> -->
+                        <form method="POST" class="my-login-validation" novalidate="">
+
+                            <div class="form-group">
+                                <label for="review">Review</label>
+                                <textarea id="" cols="20" rows="5" class="form-control" name="hotel_review" required
+                                    autofocus placeholder="Write a review">{{review}}</textarea>
+                                <div class="invalid-feedback">
+                                    Review is required
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Sentiment">Sentiment</label>
+                                <input type="text" class="form-control" value="{{message}}" readonly>
+                            </div>
+
+                            <div class="form-group m-0">
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

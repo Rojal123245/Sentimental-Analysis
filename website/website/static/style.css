@@ -1,0 +1,126 @@
+html,
+body {
+	height: 100%;
+}
+
+.content-wrapper {
+	/* background: url("images/1216.jpg") no-repeat center center fixed; */
+	width: 100%;
+	min-height: 92vh;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: relative;
+	z-index: 1;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.content-wrapper::before {
+	content: "";
+	display: block;
+	position: absolute;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background-color: #26262791;
+}
+
+
+.content-page .card-wrapper {
+	width: 400px;
+}
+
+.content-page .card {
+	border-color: transparent;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, .05);
+}
+
+.content-page .card.fat {
+	padding: 10px;
+}
+
+.content-page .card .card-title {
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+.content-page .form-control {
+	border-width: 2.3px;
+}
+
+.content-page .form-group label {
+	width: 100%;
+}
+
+.content-page .btn.btn-block {
+	padding: 12px 10px;
+}
+
+.navbar {
+	font-size: 18px;
+	font-weight: 500;
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.mobile-show {
+	display: none;
+	/* Show the content */
+}
+
+
+@media screen and (max-width: 425px) {
+	body.content-page {
+		background-image: url("images/v-bg.avif");
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+	.mobile-hide {
+		display: none;
+		/* Hide the content */
+	}
+
+	.mobile-show {
+		display: block;
+		/* Show the content */
+	}
+
+	.content-page .card-wrapper {
+		width: 90%;
+		margin: 0 auto;
+	}
+}
+
+@media screen and (max-width: 320px) {
+	body.content-page {
+		background-image: url("images/v-bg.avif");
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+	.content-page .card.fat {
+		padding: 0;
+	}
+
+	.mobile-hide {
+		display: none;
+		/* Hide the content */
+	}
+
+	.mobile-show {
+		display: block;
+		/* Show the content */
+	}
+
+	.content-page .card.fat .card-body {
+		padding: 15px;
+	}
+}

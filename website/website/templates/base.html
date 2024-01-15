@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Kodinger">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+        {% block title %} {% endblock %}
+    </title>
+    <link rel="icon" href="../static/images/logo-transparent-svg.svg" type="image/gif" sizes="16x16">
+
+    <!-- Including Bootstrap from a CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script> -->
+    <style>
+        .social-link {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            border-radius: 50%;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .social-link:hover,
+        .social-link:focus {
+            background: #ddd;
+            text-decoration: none;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body class="content-page">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav mr-auto mobile-show" style="text-align: center; padding-left: 10px;">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Hi {{current_user.name}}</a>
+            </li>
+        </ul>
+        {% endif %}
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {% if request.path == '/' %} active {% endif %}">
+                    <a class="nav-link" href="{{url_for('views.about')}}">
+                        <img src="../static/images/logo-transparent-svg.svg" width="30" height="30"
+                            class="d-inline-block align-top" alt="" style="border: 2px solid rgb(248, 243, 243);">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('views.contact')}}">Contact</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item {% if request.path == '/user' %} active {% endif %}">
+                    <a class="nav-link" href="{{url_for('views.user')}}">Sentiment</a>
+                </li>
+                <li class="nav-item {% if request.path == '/dashboard' %} active {% endif %}">
+                    <a class="nav-link" href="{{url_for('views.dashboard')}}">Dashboard</a>
+                </li>
+                <li class="nav-item {% if request.path == '/reviews' %} active {% endif %}">
+                    <a class="nav-link" href="{{url_for('views.reviews')}}">Reviews</a>
+                </li>
+                {% endif %}
+            </ul>
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav mr-auto mobile-hide" style="text-align: center;">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Hi {{current_user.name}}</a>
+                </li>
+            </ul>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+            <form class="form-inline my-2 my-lg-0">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item my-2 my-lg-0">
+                        <a class="nav-link {% if request.path == '/logout' %} active {% endif %}"
+                            href="{{url_for('auth.logout')}}">Log out</a>
+                    </li>
+                </ul>
+            </form>
+            {% else %}
+            <form class="form-inline my-2 my-lg-0">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item my-2 my-lg-0">
+                        <a class="nav-link {% if request.path == '/login' %} active {% endif %}"
+                            href="{{url_for('auth.login')}}">Login</a>
+                    </li>
+                    <li class="nav-item my-2 my-lg-0">
+                        <a class="nav-link {% if request.path == '/register' %} active {% endif %}"
+                            href="{{url_for('auth.register')}}">Sign up</a>
+                    </li>
+                </ul>
+            </form>
+            {% endif %}
+        </div>
+    </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    {% if category == 'error' %}
+    <div class="alert alert-danger alter-dismissable fade show" role="" alert>
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alter-dismissable fade show" role="" alert>
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="content-wrapper" style="background-image:url('../static/images/1216.jpg');">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+{% extends "base.html" %} {% block title %}Reviews{% endblock %}
+
+{% block content %}
+<div class="content-wrapper" style="background-image:url('../static/images/1216.jpg');">
+    <div class="container h-100">
+        <div class="row justify-content-md-center align-items-center h-100 py-5">
+            <div class="card-wrapper">
+                <div class="card fat">
+                    <div class="card-body">
+                        <h4 class="card-title">Reviews</h4>
+                        <!-- <div class="imgcontainer">
+                                <img src="./user.png" alt="Avatar" class="avatar">
+                            </div> -->
+                        <form method="POST" class="my-login-validation" novalidate="">
+                            <div class="form-group">
+                                <label for="location">Location</label>
+                                <input id="location" type="text" class="form-control" name="location"
+                                    placeholder="Enter the name of the city" value="{{ location }}" required autofocus>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="hotel_rating">Rating: <span id="rating-display">{{ hotel_rating | default(5)
+                                        }}</span>/5</label>
+                                <!-- <input type="number" id="rating" class="form-control" name="hotel_rating" min="1" max="5" value="5" required autofocus> -->
+                                <input type="range" id="my-slider" name="hotel_rating" min="1" max="5" step="0.5"
+                                    value="{{ hotel_rating | default(5) }}" required autofocus />
+                            </div>
+                            <div class="form-group">
+                                <label for="num_reviews">No. of reviews</label>
+                                <input type="number" id="num_reviews" class="form-control" name="num_reviews" min="1"
+                                    value="{{ num_reviews | default(1)}}" step="1" required autofocus>
+                            </div>
+
+                            <div class="form-group m-0">
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row h-100 align-items-center py-5">
+            {% if query_results %}
+            <div class="container h-100" style="background-color: white;">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Hotel Name</th>
+                                <th scope="col">Review</th>
+                                <th scope="col">Prediction</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr> -->
+                            {% for row in query_results %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ row[0] }}</td>
+                                <td>{{ row[1] }}</td>
+                                <td>{{ row[2] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    const slider = document.getElementById("my-slider");
+    const ratingDisplay = document.getElementById("rating-display");
+
+    slider.addEventListener("input", () => {
+        ratingDisplay.textContent = slider.value;
+    });
+
+</script>
+{% endblock %}
